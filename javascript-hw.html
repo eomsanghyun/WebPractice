@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+<head>
+<style >
+    #leftSide {
+        width : 600px;
+        height : 600px;
+        
+        position:absolute;
+        background : aqua;
+    }
+
+    #rightSide {
+        width : 600px;
+        height : 600px;
+        
+        position:absolute;
+        background : aqua;
+      
+        left : 600px;
+        border-left: 10px solid blueviolet;
+    }
+
+    img {
+        position : absolute;
+    }
+</style>
+
+</head>
+<script>
+    var numberOfFaces  = 5;
+    var Point = 0;
+  
+
+    function generateFaces() {
+        var theLeftside = document.getElementById("leftSide");
+        var theRightSide =  document.getElementById("rightSide");
+        var randomWidth, randomHeight;
+  
+        for(var i =0; i < numberOfFaces; i++) {
+            randomWidth = Math.random() * 500;
+            randomWidth = Math.floor(randomWidth);
+
+            randomHeight = Math.random() * 500;
+            randomHeight = Math.floor(randomHeight);
+
+            var smileIcon = document.createElement("img");
+           
+            smileIcon.src = "./smile.png";
+            smileIcon.style.left = randomWidth + "px";
+            smileIcon.style.top = randomHeight + "px";
+            smileIcon.className = "smile";
+
+            theLeftside.appendChild(smileIcon);
+        }
+
+        var leftSideImage = theLeftside.cloneNode(true);
+        
+        leftSideImage.removeChild(leftSideImage.lastChild);
+        theRightSide.appendChild(leftSideImage);
+
+        theLeftside.lastChild.onclick=
+             function nextLevel(event) {
+                  event.stopPropagation();
+                  numberOfFaces += 3;
+                  Point +=5;
+              
+
+                  while(theLeftside.firstChild)
+                        theLeftside.removeChild(theLeftside.firstChild);
+                
+                  while(theRightSide.firstChild)
+                        theRightSide.removeChild(theRightSide.firstChild);
+
+                  var point = document.getElementById("point");
+                  point.textContent = Point;
+                  generateFaces();
+        };
+    }
+</script>
+
+<body id = "myBody" onload="generateFaces()">
+   <h1> 틀린그림 찾기 </h1>
+   <p> click on the extra smilin face on the left </p>
+   <h2> Game Point : <span id="point"> 0 </span> </h2>
+   <div id = "leftSide">
+   </div>
+
+   <div id = "rightSide">
+      
+   </div>
+</body>
+
+<script>
+  var theBody = document.getElementById("myBody");
+  theBody.onclick = function gameOver() {
+      alert("over");
+      
+      while(theBody.firstChild) 
+            theBody.removeChild(theBody.firstChild);
+
+      var message = document.createElement("h1");
+      message.textContent = "Good-Bye!";
+      theBody.appendChild(message);
+  }
+</script>   
+
+
+</html>
