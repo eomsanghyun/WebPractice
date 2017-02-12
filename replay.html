@@ -1,0 +1,74 @@
+<!doctype>
+<html>
+
+<head>
+    <style>
+        #centerBox {
+            background: white;
+            position :absolute;
+            width : 800px;
+            height: 800px;
+            left : 500px;
+            top : 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id = "centerBox"></div>   
+
+
+</body>
+
+<script>
+    var color = ["aqua","firebrick","forestgreen", "deeppink","yellow","chartreuse","linen","darkturquoise"];
+    var width = 780;
+    var height = 780;
+
+    var randomColor; 
+
+
+    function generateRect() {
+        var centerBox = document.getElementById("centerBox");
+        var selectNode = centerBox;
+
+        while( width > 100) {
+         
+             randomColor = Math.random() * 7;
+             randomColor = Math.floor(randomColor);
+
+             var newBox = document.createElement("div");
+            
+             newBox.style.position = "absolute";
+             newBox.style.left = "10px";
+             newBox.style.top = "10px";
+             newBox.style.width = width + "px";
+             newBox.style.height = height + "px";
+             newBox.style.background = color[randomColor];
+
+             selectNode.appendChild(newBox);
+             selectNode = newBox;
+
+             width-=20;
+             height-=20 ;
+        }
+
+        var replay = document.createElement("button");
+        replay.style.width = width;
+        replay.style.height = height;
+        replay.textContent = "REPLAY";
+        replay.style.fontSize = "20px"
+        replay.style.fontStyle = "bold";
+        replay.style.position ="absolute";
+        replay.style.left = "10px";
+        replay.style.top = "10px";
+        replay.onclick = function () {
+            window.location = "./pictureGame.html";
+        }
+    
+        selectNode.appendChild(replay);
+    };
+
+    generateRect();
+</script>
+</html>
