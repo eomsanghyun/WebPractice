@@ -1,0 +1,47 @@
+
+
+<!DOCTYPE?>
+<html>
+    <head>
+        <title>A simple Web Page </title>
+        <meta  name ="author" content = "eom">
+    </head>
+    <body id = "myBody">
+        <h1>My Web Page</h1>
+        <p>This web page is so awesome!</p>
+    </body>
+
+
+    <script>
+    function attachHandler(node) {   
+        if(node == null)
+            return;
+
+         node.onclick =handleClick;        
+         
+        for (var i =0; i < node.childNodes.length; ++i) 
+            attachHandler(node.childNodes[i]); 
+    }
+
+    function handleClick(event) {
+            event.stopPropagation();    
+
+            var node = event.target;
+            var path = node.nodeName;
+
+            while (node.parentNode) {
+                node = node.parentNode;
+                path = node.nodeName + " -> " + path;
+            }
+
+            alert(path);
+    }
+
+    var rootNode = document.getElementById("myBody");
+    attachHandler(rootNode);
+    </script>
+</html>
+
+
+
+
